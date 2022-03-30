@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Resume Builder</title>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <form method="GET" action="/">
+                <button class="preview-btn" type="submit">Back To Edit Page</button>
+            </form>
+        </div>
+        <h1 id="main-heading">AUTOMATED RESUME BUILDER
+        </h1>
+        <div>
+            <button onclick="CreatePDFfromHTML()" class="preview-btn">Print PDF</button>
+        </div>
+    </nav>
+    <section class="main-box">
+        <section class="main-content">
+            <section id="personal-detail-section" style="height:60px">
+                <%if(detail.personal_detail){%>
+                    <h1>
+                        <p id="name">
+                            <%= detail.personal_detail.name %>
+                        </p>
+                    </h1>
+                    <p> <b>Phone no-</b> <span id="phone-number"> <%= detail.personal_detail.contact %> </span> </p>
+                    <p> <b>Email-</b> <span id="email"> <%= detail.personal_detail.email %> </span> </p>
+                    <%}%>
+            </section>
+            <section id="info-section">
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>EDUCATION</h3>
+                    </section>
+                    <%if(detail.education_detail){%>
+                        <ul class="info-card-detail">
+                            <% for(let detail1 of detail.education_detail ){ %>
+                                <li style="margin-top:5px">
+                                    <section class="info-card-content">
+                                        <h4>
+                                            <%= detail1.institute %>
+                                        </h4>
+                                        <h4>
+                                            <%=detail1.from%> -
+                                                <%=detail1.to%>
+                                        </h4>
+                                        <h4>CGPA/% -
+                                            <%=detail1.percent%>
+                                        </h4>
+                                    </section>
+                                </li>
+                                <%} %>
+                        </ul>
+                        <%}%>
+                </section>
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>TECHNICAL SKILLS</h3>
+                    </section>
+
+                    <ul class="info-card-detail">
+                        <%if(detail.technical_skills){%>
+                            <li>
+                                <b>Languages: </b>
+                                <%=detail.technical_skills.languages%>
+                            </li>
+                            <%}%>
+                    </ul>
+                </section>
+
+
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>PROJECT</h3>
+                    </section>
+                    <%if(detail.project){%>
+                        <ul class="info-card-detail">
+                            <% for(let detail1 of detail.project ){ %>
+                                <li>
+                                    <section class="info-card-content">
+                                        <section class="info-card-title">
+                                            <h4>
+                                                <%=detail1.project%>
+                                            </h4>
+                                        </section>
+                                        <section class="info-card-desc">
+                                            <p>
+                                                <%=detail1.description%>
+                                            </p>
+                                        </section>
+                                    </section>
+                                </li>
+                                <% }%>
+                        </ul>
+                        <%}%>
+                </section>
+
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>WORK EXPERIENCE</h3>
+                    </section>
+                    <%if(detail.work_experience){%>
+                        <ul class="info-card-detail">
+                            <% for(let detail1 of detail.work_experience ){ %>
+                                <li>
+                                    <section class="info-card-content">
+                                        <section class="info-card-title">
+                                            <h4>
+                                                <%=detail1.company%>
+                                            </h4>
+                                        </section>
+                                        <section class="info-card-desc">
+                                            <p>
+                                                <%=detail1.description%>
+                                            </p>
+                                        </section>
+                                    </section>
+                                </li>
+                                <% }%>
+                        </ul>
+                        <%}%>
+                </section>
+
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>ACHIEVEMENTS</h3>
+                    </section>
+                    <%if(detail.achievement){%>
+                        <ul class="info-card-detail">
+                            <% for(let detail1 of detail.achievement ){ %>
+                                <li>
+                                    <%= detail1.achievement %>
+                                </li>
+                                <%}%>
+                        </ul>
+                        <%}%>
+                </section>
+            </section>
+        </section>
+    </section>
+</body>
+<script src="/js/PDFprint.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/form.css">
+</head>
+
+<body>
+
+
+    <div>
+        <h3>Enter Your Achievement</h3>
+
+        <form action="/achievement/<%=detail.id%>?_method=patch" method="POST">
+            <label for="achievement">Achievement</label>
+            <input type="text" id="achievement" name="achievement" value="<%=detail.achievement%>">
+            <button>ADD+</button>
+        </form>
+    </div>
+</body>
+
+</html>

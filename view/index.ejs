@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Resume Builder</title>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <form method="GET" action="/clear">
+                <button class="preview-btn">Clear</button>
+            </form>
+        </div>
+        <h1 id="main-heading">AUTOMATED RESUME BUILDER
+        </h1>
+        <div>
+            <form method="GET" action="/preview">
+                <button class="preview-btn">Preview Resume</button>
+            </form>
+        </div>
+    </nav>
+    <section class="main-box">
+        <section class="main-content">
+            <section id="personal-detail-section">
+                <%if(detail.personal_detail){%>
+                    <h1>
+                        <p id="name">
+                            <%= detail.personal_detail.name %>
+                        </p>
+                    </h1>
+                    <p> <b>Phone no-</b> <span id="phone-number"> <%= detail.personal_detail.contact %> </span> </p>
+                    <p> <b>Email-</b> <span id="email"> <%= detail.personal_detail.email %> </span> </p>
+                    <p style="margin-top: 3px;margin-bottom:4px" class="sidebyside">
+                        <span>
+                            <form method="GET" action="/personal-detail/<%=detail.personal_detail.id%>">
+                                <button type="submit" class="button2">EDIT</button>
+                            </form>
+                        </span>
+                        <span>
+                            <form method="POST" action="/personal-detail/<%=detail.personal_detail.id%>?_method=DELETE">
+                                <button type="submit" class="button2">DELETE</button>
+                            </form>
+                        </span>
+                    </p>
+                    <%}else{%>
+                        <form method="GET" action="/personal-detail">
+                            <button class="button1 button4">ADD+</button>
+                        </form>
+                        <%}%>
+            </section>
+            <section id="info-section">
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>EDUCATION</h3>
+                    </section>
+                    <%if(detail.education_detail){%>
+                        <ul class="info-card-detail">
+                            <% for(let detail1 of detail.education_detail ){ %>
+                                <li style="margin-top:5px">
+                                    <section class="info-card-content">
+                                        <h4>
+                                            <%= detail1.institute %>
+                                        </h4>
+                                        <h4>
+                                            <%=detail1.from%> -
+                                                <%=detail1.to%>
+                                        </h4>
+                                        <h4>CGPA/% -
+                                            <%=detail1.percent%>
+                                        </h4>
+                                    </section>
+                                </li>
+                                <p style="margin-top: 3px;margin-bottom:4px" class="sidebyside">
+                                    <span>
+                                        <form method="GET" action="/education-detail/<%=detail1.id%>">
+                                            <button style="display:inline" type="submit" class="button2">EDIT</button>
+                                    </form>
+                                    </span>
+                                    <span>
+                                        <form method="POST" action="/education-detail/<%=detail1.id%>?_method=DELETE">
+                                            <button style="display:inline" type="submit" class="button2">DELETE</button>
+                                        </form>
+                                    </span>
+                                </p>
+                                <%} %>
+                        </ul>
+                        <%}%>
+                            <form method="GET" action="/education-detail">
+                                <button class="button1 button4">ADD+</button>
+                            </form>
+                </section>
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>TECHNICAL SKILLS</h3>
+                    </section>
+
+                    <ul class="info-card-detail">
+                        <%if(detail.technical_skills){%>
+                            <li>
+                                <b>Languages: </b>
+                                <%=detail.technical_skills.languages%>
+                            </li>
+                            <p style="margin-top: 3px;margin-bottom:4px" class="sidebyside">
+                                <span>
+                                    <form method="GET" action="/technical-skills/<%=detail.technical_skills.id%>">
+                                        <button style="display:inline" type="submit" class="button2">EDIT</button>
+                                    </form>
+                                </span>
+                                <span>
+                                    <form method="POST" action="/technical-skills/<%=detail.technical_skills.id%>?_method=DELETE">
+                                        <button style="display:inline" type="submit" class="button2">DELETE</button>
+                                    </form>
+                                </span>
+                            </p>
+                            <%}else{%>
+                                <form method="GET" action="/technical-skills">
+                                    <button class="button1 button4">ADD+</button>
+                                </form>
+                                <%}%>
+                    </ul>
+                </section>
+
+
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>PROJECT</h3>
+                    </section>
+                    <%if(detail.project){%>
+                        <ul class="info-card-detail">
+                            <% for(let detail1 of detail.project ){ %>
+                                <li>
+                                    <section class="info-card-content">
+                                        <section class="info-card-title">
+                                            <h4>
+                                                <%=detail1.project%>
+                                            </h4>
+                                        </section>
+                                        <section class="info-card-desc">
+                                            <p>
+                                                <%=detail1.description%>
+                                            </p>
+                                        </section>
+                                    </section>
+                                </li>
+                                <p style="margin-top: 3px;margin-bottom:4px" class="sidebyside">
+                                    <span>
+                                        <form method="GET" action="/project/<%=detail1.id%>?">
+                                            <button style="display:inline" type="submit" class="button2">EDIT</button>
+                                        </form>
+                                    </span>
+                                    <span>
+                                        <form method="POST" action="/project/<%=detail1.id%>?_method=DELETE">
+                                            <button style="display:inline" type="submit" class="button2">DELETE</button>
+                                        </form>
+                                    </span>
+                                </p>
+                                <% }%>
+                        </ul>
+                        <%}%>
+                            <form action="/project" method="GET">
+                                <button class="button1 button4">ADD+</button>
+                            </form>
+                </section>
+
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>WORK EXPERIENCE</h3>
+                    </section>
+                    <%if(detail.work_experience){%>
+                        <ul class="info-card-detail">
+                            <% for(let detail1 of detail.work_experience ){ %>
+                                <li>
+                                    <section class="info-card-content">
+                                        <section class="info-card-title">
+                                            <h4>
+                                                <%=detail1.company%>
+                                            </h4>
+                                        </section>
+                                        <section class="info-card-desc">
+                                            <p>
+                                                <%=detail1.description%>
+                                            </p>
+                                        </section>
+                                    </section>
+                                </li>
+                                <p style="margin-top: 3px;margin-bottom:4px" class="sidebyside">
+                                    <span>
+                                        <form method="GET" action="/work-experience/<%=detail1.id%>">
+                                            <button style="display:inline" type="submit" class="button2">EDIT</button>
+                                        </form>
+                                    </span>
+                                    <span>
+                                        <form method="POST" action="/work-experience/<%=detail1.id%>?_method=DELETE">
+                                            <button style="display:inline" type="submit" class="button2">DELETE</button>
+                                        </form>
+                                    </span>
+                                </p>
+                                <% }%>
+                        </ul>
+                        <%}%>
+                            <form action="/work-experience" method="GET">
+                                <button class="button1 button4">ADD+</button>
+                            </form>
+                </section>
+
+                <section class="info-card">
+                    <section class="info-card-head">
+                        <h3>ACHIEVEMENTS</h3>
+                    </section>
+                    <%if(detail.achievement){%>
+                        <ul class="info-card-detail">
+                            <% for(let detail1 of detail.achievement ){ %>
+                                <li>
+                                    <%= detail1.achievement %>
+                                </li>
+                                <p style="margin-top: 3px;margin-bottom:4px" class="sidebyside">
+                                    <span>
+                                        <form method="GET" action="/achievements/<%=detail1.id%>">
+                                            <button style="display:inline" type="submit" class="button2">EDIT</button>
+                                        </form>
+                                    </span>
+                                    <span>
+                                        <form method="POST" action="/achievements/<%=detail1.id%>?_method=DELETE">
+                                            <button style="display:inline" type="submit" class="button2">DELETE</button>
+                                        </form>
+                                    </span>
+                                </p>
+                                <%}%>
+                        </ul>
+                        <%}%>
+                            <form action='/achievement' method="GET">
+                                <button class="button1 button4">ADD+</button>
+                            </form>
+                </section>
+            </section>
+        </section>
+    </section>
+</body>
+
+</html>
